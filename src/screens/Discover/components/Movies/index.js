@@ -3,21 +3,17 @@ import { arrayOf, shape, string, number } from 'prop-types';
 
 import { IMAGE_BASE_URL, DEFAULT_IMAGE_SIZE } from 'constants/configuration';
 
-import Rating from 'components/Rating';
-
 import styles from './styles.module.scss';
 
 function Movies({ list }) {
   return (
     <>
-      {list.map(({ poster_path: posterPath, id, title, vote_average: rate }) => (
+      {list.map(({ poster_path: posterPath, id, title }) => (
         <figure
           key={id}
           className={`image ${styles.movie} ${!posterPath && styles.noPoster}`}
         >
           <img alt={title} src={IMAGE_BASE_URL + DEFAULT_IMAGE_SIZE + posterPath} />
-          {/* Remove this after finish the filter debug */}
-          <Rating title={false} rate={rate} />
         </figure>
       ))}
     </>

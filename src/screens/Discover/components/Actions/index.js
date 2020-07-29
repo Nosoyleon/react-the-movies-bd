@@ -17,7 +17,7 @@ function Actions({ onSearch, onEmptySearch, searching }) {
     } else if (length === 0) {
       onEmptySearch();
     }
-  }, 1000);
+  }, 700);
   const handleSearch = () => debouncedSearch();
 
   return (
