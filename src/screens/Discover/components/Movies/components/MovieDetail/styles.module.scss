@@ -1,0 +1,9 @@
+.detailImage {
+  width: 200px;
+}
+
+.additional {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  margin-top: 10px;
+}
