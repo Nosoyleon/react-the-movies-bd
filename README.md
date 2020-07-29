@@ -1,3 +1,13 @@
+## Instructions
+
+- Create an .env.local file
+- In the file insert: REACT_APP_MOVIES_API_KEY=YOUR_OWN_API_KEY
+- Also insert: REACT_APP_MOVIES_API_BASE_URL=https://api.themoviedb.org/3
+- You can get the your API_KEY for free in https://developers.themoviedb.org/3
+- Run npm install
+- Run npm start
+- Find a Bug O.o
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
