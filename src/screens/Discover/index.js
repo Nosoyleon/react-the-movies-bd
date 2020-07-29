@@ -1,47 +1,32 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState } from 'react';
 
-import { DISCOVER } from './strings';
+import { getMovies } from 'services/theMoviesService';
+
 import styles from './styles.module.scss';
+import Movies from './components/Movies';
+import Actions from './components/Actions';
 
 function Discover() {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = async () => {
+    const moviesResponse = await getMovies();
+    console.log('movies', moviesResponse.data);
+    setMovies(moviesResponse.data.results);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <article className="container">
-      <nav className="level">
-        <div className="level-left">
-          <div className="level-item">
-            <h1 className="title mb-0">{DISCOVER}</h1>
-          </div>
-          <div className="level-item">
-            <div className="control has-icons-left">
-              <input className="input is-rounded" type="text" placeholder="Search" />
-              <span className="icon is-small is-left">
-                <FontAwesomeIcon icon={faSearch} />
-              </span>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Actions />
+      {isLoading && <progress className="progress is-small is-primary" max="100" />}
       <section className={`container ${styles.moviesContainer}`}>
-        <figure className="image">
-          <img alt="movie" src="https://bulma.io/images/placeholders/256x256.png" />
-        </figure>
-        <figure className="image">
-          <img alt="movie" src="https://bulma.io/images/placeholders/256x256.png" />
-        </figure>
-        <figure className="image">
-          <img alt="movie" src="https://bulma.io/images/placeholders/256x256.png" />
-        </figure>
-        <figure className="image">
-          <img alt="movie" src="https://bulma.io/images/placeholders/256x256.png" />
-        </figure>
-        <figure className="image">
-          <img alt="movie" src="https://bulma.io/images/placeholders/256x256.png" />
-        </figure>
-        <figure className="image">
-          <img alt="movie" src="https://bulma.io/images/placeholders/256x256.png" />
-        </figure>
+        {!!movies.length && <Movies list={movies} />}
       </section>
     </article>
   );
