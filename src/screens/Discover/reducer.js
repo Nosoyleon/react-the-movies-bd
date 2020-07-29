@@ -5,6 +5,13 @@ export const ACTIONS = {
   SET_MOVIES: 'setMovies'
 };
 
+const getFilterMovies = state => {
+  return state.movies.filter(
+    ({ vote_average: average }) =>
+      average >= state.rate.min && average <= state.rate.max
+  );
+};
+
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.SET_MOVIES:
@@ -12,10 +19,7 @@ function reducer(state, action) {
     case ACTIONS.GET_FILTERED_MOVIES:
       return {
         ...state,
-        filteredMovies: state.movies.filter(
-          ({ vote_average: average }) =>
-            average >= state.rate.min && average <= state.rate.max
-        ),
+        filteredMovies: state.rate?.max ? getFilterMovies(state) : state.movies,
         isLoading: false
       };
     case ACTIONS.SET_LOADING:

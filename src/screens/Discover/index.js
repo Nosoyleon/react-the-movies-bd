@@ -63,10 +63,17 @@ function Discover() {
   };
 
   const handleFilter = newRate => {
-    dispatch({
-      type: ACTIONS.FILTER_MOVIES,
-      payload: newRate
-    });
+    if (newRate.max === rate?.max) {
+      dispatch({
+        type: ACTIONS.FILTER_MOVIES,
+        payload: {}
+      });
+    } else {
+      dispatch({
+        type: ACTIONS.FILTER_MOVIES,
+        payload: newRate
+      });
+    }
   };
 
   return (
