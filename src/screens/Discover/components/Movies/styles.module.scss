@@ -1,0 +1,12 @@
+.movie {
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.noPoster {
+  border: 1px solid black;
+}

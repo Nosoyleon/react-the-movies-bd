@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
-import { getMovies } from 'services/theMoviesService';
+import { getMovies, searchMovie } from 'services/theMoviesService';
 
 import styles from './styles.module.scss';
 import Movies from './components/Movies';
 import Actions from './components/Actions';
+import { NOT_FOUND } from './strings';
 
 function Discover() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
+    setIsLoading(true);
     const moviesResponse = await getMovies();
-    console.log('movies', moviesResponse.data);
+    setMovies(moviesResponse.data.results);
+    setIsLoading(false);
+  };
+
+  const handleSearch = async searchText => {
+    setIsLoading(true);
+    const moviesResponse = await searchMovie({ query: searchText });
     setMovies(moviesResponse.data.results);
     setIsLoading(false);
   };
@@ -23,11 +31,17 @@ function Discover() {
 
   return (
     <article className="container">
-      <Actions />
-      {isLoading && <progress className="progress is-small is-primary" max="100" />}
+      <Actions
+        onSearch={handleSearch}
+        onEmptySearch={fetchData}
+        searching={isLoading}
+      />
       <section className={`container ${styles.moviesContainer}`}>
         {!!movies.length && <Movies list={movies} />}
       </section>
+      {!movies.length && !isLoading && (
+        <div className="notification">{NOT_FOUND}</div>
+      )}
     </article>
   );
 }
