@@ -4,6 +4,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { debounce } from 'lodash';
 import { func, bool } from 'prop-types';
 
+import Rating from 'components/Rating';
+
 import { DISCOVER } from '../../strings';
 
 function Actions({ onSearch, onEmptySearch, searching }) {
@@ -37,6 +39,11 @@ function Actions({ onSearch, onEmptySearch, searching }) {
               <FontAwesomeIcon icon={faSearch} />
             </span>
           </div>
+        </div>
+      </div>
+      <div className="level-right">
+        <div className="level-item">
+          <Rating />
         </div>
       </div>
     </nav>

@@ -1,0 +1,20 @@
+.container {
+  align-items: center;
+  column-gap: 5px;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(5, auto);
+}
+
+.selected {
+  color: gold;
+}
+
+.star {
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
